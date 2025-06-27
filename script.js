@@ -4,8 +4,17 @@ let priceContainer = document.querySelector(".current-price").closest("div");
 let productCode = document.querySelector(".product-code").innerHTML.trim().split("Ürün Kodu:").join("").split(" ").join("").trim();
 let originalPrice = priceContainer.querySelector(".current-price").innerHTML.trim();
 
+const clearFirst = () => {
+    document.querySelector(".popUpScreen")?.remove();
+    document.querySelector(".styleLink")?.remove();
+}
+
+
+clearFirst();
+
 ///Add Header///
 let style = document.createElement('style');
+style.classList.add("styleLink");
 style.textContent = `*{
     box-sizing: border-box;
     padding: 0;
@@ -99,24 +108,24 @@ if(productCode){
             filteredCodes.push(item);
         }
     });
-    console.log(productCodes, productCodes.length);
-    console.log(filteredCodes, filteredCodes.length);
+    // console.log(productCodes, productCodes.length);
+    // console.log(filteredCodes, filteredCodes.length);
     if(filteredCodes.length >= 2){
         switch(true){
             case filteredCodes.length === 2:
                 showPopUP("2","5",originalPrice)
                 customizePrice(calculateDiscount(5));
-                console.log("yüzde 5")
+                // console.log("yüzde 5")
                 break;
             case filteredCodes.length === 3:
                 showPopUP("3","10",originalPrice)
                 customizePrice(calculateDiscount(10));
-                console.log("yüzde 10")
+                // console.log("yüzde 10")
                 break;
             case filteredCodes.length === 4:
                 showPopUP("4","20",originalPrice)
                 customizePrice(calculateDiscount(20));
-                console.log("yüzde 20")
+                // console.log("yüzde 20")S
                 break;
             case filteredCodes.length >= 5:
                 showPopUP("5","25",originalPrice)
@@ -129,11 +138,11 @@ if(productCode){
 ////calculate////
 function calculateDiscount(discount){
     var toCalculate =+priceContainer.querySelector(".current-price").innerHTML.trim().replace("TL","").replace(",",".");
-    console.log(typeof(toCalculate), toCalculate);
+    // console.log(typeof(toCalculate), toCalculate);
     calculated = toCalculate - parseFloat((toCalculate/100*discount)).toFixed(2);
-    console.log(typeof(calculated), calculated);
+    // console.log(typeof(calculated), calculated);
     var stringVersion = calculated.toString().replace(".",",") + " TL";;
-    console.log(typeof(stringVersion), stringVersion);
+    // console.log(typeof(stringVersion), stringVersion);
     return stringVersion;
 }
 ////Add Price////
@@ -148,7 +157,7 @@ function customizePrice(discountedPrice){
 };
 
 ////popUp////
-function showPopUP(numberOfVisit,percentOfDiscount,beforeDiscount,afterDiscount){
+function showPopUP(numberOfVisit,percentOfDiscount,beforeDiscount){
     let popUp = document.createElement('div');
     popUp.classList.add("popUpScreen");
     popUp.innerHTML=`<div class="popUpContainer">
@@ -156,7 +165,7 @@ function showPopUP(numberOfVisit,percentOfDiscount,beforeDiscount,afterDiscount)
     <div class="popUpContentContainer">
     <div class="giftBox"><i class="fa-solid fa-gift"></i></div>
     <p class="ContentHeader">Bu Ürünü ${numberOfVisit}. Ziyaret Edişiniz</p>
-    <p class="ContentDiscount">${percentOfDiscount}% Discount, <span>${beforeDiscount}$</span></p>
+    <p class="ContentDiscount">${percentOfDiscount}% Discount, <span>${beforeDiscount}</span></p>
     </div>
     </div>`;
     body.append(popUp);
@@ -170,12 +179,35 @@ function showPopUP(numberOfVisit,percentOfDiscount,beforeDiscount,afterDiscount)
     function deleteHandler(event){
         
         body.removeChild(popUp);
-        console.log(event.target)
+        // console.log(event.target)
+
         
     }
 }
 
 
+
+// const initialize = () => {
+
+
+
+// }
+
+
 // solidCode = ProductCode.split("Ürün Kodu:").join("").split(" ").join("").trim();
 // solidCode = ProductCode.replace("Ürün Kodu:", "").trim();
 // console.log(solidCode);
+
+
+
+
+// let data ={
+
+
+// "bedirhan":3,
+// "salih":7
+
+// }
+
+
+// data["bedirhan"]
